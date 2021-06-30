@@ -1,0 +1,466 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap");
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* root variable for grid and x and o  */
+
+:root {
+  --cell-size: 10rem;
+  --marker-size: calc(var(--cell-size) * 0.85);
+}
+
+html {
+  font-size: 62.5%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  transition: background-color 0.4s ease;
+}
+
+@media (max-width: 996px) {
+  html {
+    font-size: 55%;
+  }
+}
+@media (max-width: 768px) {
+  html {
+    font-size: 45%;
+  }
+}
+
+
+div.wrapper {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+}
+
+div.gameRules {
+  width: 50%;
+  height: auto;
+  text-align: center;
+  font-family: "Ubuntu", sans-serif;
+  animation: 0.8s ease 0.5s 1 slideINFromLeft;
+  -webkit-animation: 0.8s ease 0.5s 1 slideINFromLeft;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+}
+
+/* keyframes for animation  */
+@keyframes slideINFromLeft {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.gradient_text {
+  background: linear-gradient(to right, #8a2387, #e94057, #f27121);
+  background-size: 100%;
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  font-size: 5.2rem;
+  padding: 1rem 1rem;
+  font-weight: bolder;
+}
+
+.btn_start {
+  font-size: 1.8rem;
+  padding: 0.5rem 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: #8a2387;
+  border: 1px solid #e94057;
+  border-radius: 1.1rem;
+  background-color: transparent;
+  transition: all 0.2s ease-in;
+}
+
+.btn_start:hover {
+  background: linear-gradient(to right, #8a2387, #e94057, #f27121);
+  background-size: 100%;
+  background-clip: text;
+  color: white;
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+div.gameContainer {
+  width: 50%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+ 
+}
+
+/* center game container  */
+.gameContainer_Center {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  height: auto;
+  display: grid;
+  place-items: center;
+  text-align: center;
+
+  animation: boxToLeft 1s ease 0s 1;
+  -webkit-animation: boxToLeft 1s ease 0s 1;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+}
+
+@keyframes boxToLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%) scale(1.2);
+  }
+}
+
+/* Theme toogle  */
+div#theme_toggle {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  font-size: 1.9rem;
+  margin-bottom: 3rem;
+  margin-top: 2rem;
+}
+
+label.form-check-label {
+  padding: 0 1.5rem;
+}
+
+/* swipe container on start button click  */
+
+.swipe_to_left {
+  width: 50%;
+  height: auto;
+  text-align: center;
+  font-family: "Ubuntu", sans-serif;
+  animation: slideToLeft 1s ease 0s 1;
+  -webkit-animation: slideToLeft 1s ease 0s 1;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+}
+@keyframes slideToLeft {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-150%);
+  }
+}
+
+/* game board  */
+div.board {
+  display: grid;
+  width: 25rem;
+  height: 25rem;
+  place-items: center;
+  place-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: repeat(3, auto);
+  animation: slideFromRight 0.8s ease 1s 1;
+  -webkit-animation: slideFromRight 0.8s ease 1s 1;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+}
+
+@keyframes slideFromRight {
+  0% {
+    transform: translateX(300%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+div.cell {
+  height: var(--cell-size);
+  width: var(--cell-size);
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  
+}
+div.cell_white {
+  height: var(--cell-size);
+  width: var(--cell-size);
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  
+}
+
+/* only show cursor pointer when game is start  */
+.gameContainer_Center .cell{
+  cursor: pointer;
+}
+.gameContainer_Center .cell_white{
+  cursor: pointer;
+}
+
+
+/* pointer cursor should not be allowed if any cell and x or o class  */
+.cell.x,
+.cell_white.x,
+.cell.o,
+.cell_white.o {
+  cursor: not-allowed;
+}
+
+/* remove top left right bottom borders of grid  */
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+.cell_white:first-child,
+.cell_white:nth-child(2),
+.cell_white:nth-child(3) {
+  border-top: none;
+}
+
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+.cell_white:nth-child(3n + 1) {
+  border-left: none;
+}
+
+.cell:nth-child(3n) {
+  border-right: none;
+}
+.cell_white:nth-child(3n) {
+  border-right: none;
+}
+
+.cell:nth-child(7),
+.cell:nth-child(8),
+.cell:last-child {
+  border-bottom: none;
+}
+.cell_white:nth-child(7),
+.cell_white:nth-child(8),
+.cell_white:last-child {
+  border-bottom: none;
+}
+
+/* Creating the X and O  using psuedo selectors, */
+
+/* *****************************  "X" *****************************  */
+
+.cell.x::before,
+.cell.x::after,
+.cell_white.x::before,
+.cell_white.x::after {
+  content: "";
+  position: absolute;
+  width: calc(var(--marker-size) * 0.2);
+  height: var(--marker-size);
+  background: linear-gradient(to bottom, #11998e, #38ef7d);
+  /* this will create two vertical lines on top of each other  */
+}
+
+.cell.x::before,
+.cell_white.x::before,
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell_white:not(.x):not(.o):hover::before {
+  transform: rotate(45deg);
+}
+.cell.x::after,
+.cell_white.x::after,
+.board.x .cell:not(.x):not(.o):hover::after,
+.board.x .cell_white:not(.x):not(.o):hover::after {
+  transform: rotate(-45deg);
+}
+
+/* ***** HOVER EFFECT , GIVE THE BOARD CLASS X OR O , THEN IT WILL SHOW THE RESPECTIVE ON HOVER OVER A CELL   */
+
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell_white:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after,
+.board.x .cell_white:not(.x):not(.o):hover::after {
+  content: "";
+  position: absolute;
+  width: calc(var(--marker-size) * 0.2);
+  height: var(--marker-size);
+  background: linear-gradient(to bottom, #11998e, #38ef7d);
+  opacity: 0.3;
+}
+
+/* *********************** "O" ************************************  */
+
+.cell.o::before,
+.cell.o::after,
+.cell_white.o::before,
+.cell_white.o::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  /* two circles stacked on top of each other, make ::bofore the outer circle , ::after the inner , style seperately  */
+  transition: background 0.5s ease;
+}
+
+.cell.o::before,
+.cell_white.o::before {
+  width: var(--marker-size);
+  height: var(--marker-size);
+  background: linear-gradient(to bottom, #cac531, #f3f9a7);
+}
+.cell.o::after {
+  width: calc(var(--marker-size) * 0.65);
+  height: calc(var(--marker-size) * 0.65);
+  background: white;
+}
+
+.cell_white.o::after {
+  width: calc(var(--marker-size) * 0.65);
+  height: calc(var(--marker-size) * 0.65);
+  background: #1b262c;
+}
+
+/* ***** HOVER EFFECT , GIVE THE BOARD CLASS X OR O , THEN IT WILL SHOW THE RESPECTIVE ON HOVER OVER A CELL   */
+
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell_white:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after,
+.board.o .cell_white:not(.x):not(.o):hover::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell_white:not(.x):not(.o):hover::before {
+  width: var(--marker-size);
+  height: var(--marker-size);
+  background: linear-gradient(to bottom, #cac531, #f3f9a7);
+  opacity: .3;
+}
+
+.board.o .cell:not(.x):not(.o):hover::after {
+  width: calc(var(--marker-size) * 0.65);
+  height: calc(var(--marker-size) * 0.65);
+  background: white;
+}
+
+.board.o .cell_white:not(.x):not(.o):hover::after {
+  width: calc(var(--marker-size) * 0.65);
+  height: calc(var(--marker-size) * 0.65);
+  background: #1b262c;
+}
+
+
+/* *****************************  RESTART GAME  *********************************  */
+
+div.resetGame{
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  background-color: rgb(22, 22, 22);
+  opacity: .9;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  transition: display .6s ease;
+}
+
+.restart_start{
+font-size: 2rem;
+padding: 1rem;
+border-radius: 1.5rem;
+outline: none;
+font-family: "Ubuntu", sans-serif;
+font-weight: 400;
+}
+
+div.display_message > h1{
+  font-size: 6rem;
+  opacity: 1 !important;
+}
+
+div.display_message{
+  margin-bottom: 2rem;
+}
+
+
+/* *********************** MEDIA QUERIES ***********************************  */
+
+@media(max-width : 480px){
+  div.wrapper{
+    flex-direction: column;
+    justify-content:space-evenly;
+  }
+  div#theme_toggle{
+    font-size: 2.2rem;
+  }
+  .btn_start{
+    font-size: 2.5rem;
+  }
+
+  @keyframes slideINFromLeft {
+    0% {
+      transform: translateY(-200%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+
+  @keyframes boxToLeft {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-110%) scale(1.4);
+    }
+  }
+
+  @keyframes slideToLeft {
+    0% {
+      transform: translateY(0);
+    }
+  
+    100% {
+      transform: translateY(-200%);
+    }
+  }
+
+  @keyframes slideFromRight {
+    0% {
+      transform: translateY(250%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+
+}
