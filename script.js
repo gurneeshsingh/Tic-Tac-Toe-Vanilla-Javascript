@@ -47,7 +47,6 @@ game_start_btn.addEventListener('click', () => {
     }, 500);
 
 
-
     // GAME LOGIC 
 
 
@@ -65,6 +64,14 @@ game_start_btn.addEventListener('click', () => {
 
     const display_message = document.querySelector('.display_message');
 
+    // define wins counts for x and o 
+
+    let x_win_count = 0;
+    let o_win_count = 0;
+
+    const x_count_show = document.getElementById('x_wins');
+    const o_count_show = document.getElementById('o_wins');
+
     //define turn 
     let o_Turn
 
@@ -81,7 +88,7 @@ game_start_btn.addEventListener('click', () => {
         // add event listner to each of the cell , thus loop through the all_cells
 
         all_cells.forEach((cell) => {
-            //remove all the classes and event listners first 
+            //remove all the classes and event listners 
             cell.classList.remove(X_CLASS);
             cell.classList.remove(O_CLASS);
             cell.removeEventListener('click', handleClick);
@@ -126,7 +133,17 @@ game_start_btn.addEventListener('click', () => {
         if (draw) {
             display_message.innerHTML = `<h1> Its A Draw !</h1>`
         } else {
-            display_message.innerHTML = `<h1>${o_Turn ? "O" : "X"} Wins !</h1>`
+            display_message.innerHTML = `<h1>${o_Turn ? "O" : "X"} Wins !</h1>`;
+            if (o_Turn) {
+                o_win_count += 1
+                o_count_show.innerHTML = `${o_win_count}`;
+
+            } else {
+                x_win_count += 1;
+                x_count_show.innerHTML = `${x_win_count}`;
+
+
+            }
 
         }
         document.getElementById('resetGame').style.display = 'flex';

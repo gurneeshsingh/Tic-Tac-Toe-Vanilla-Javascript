@@ -39,6 +39,8 @@ div.wrapper {
   height: 100vh;
   width: 100vw;
   align-items: center;
+  justify-content: space-evenly;
+  
 }
 
 div.gameRules {
@@ -111,9 +113,10 @@ div.gameContainer {
   width: 50%;
   height: auto;
   display: grid;
+  justify-content: center;
+  place-content: center;
   place-items: center;
   text-align: center;
-
   animation: boxToLeft 1s ease 0s 1;
   -webkit-animation: boxToLeft 1s ease 0s 1;
   animation-fill-mode: both;
@@ -174,7 +177,7 @@ div.board {
   place-content: center;
   margin-left: auto;
   margin-right: auto;
-  justify-items: center;
+  justify-content: center;
   align-items: center;
   grid-template-columns: repeat(3, auto);
   animation: slideFromRight 0.8s ease 1s 1;
@@ -373,6 +376,52 @@ div.cell_white {
 }
 
 
+/* *****************************  X_WINS AND 0_WINS  DISPLAY ***********************************    */
+
+.x_wins{
+  height: auto;
+  width: 15rem;
+  font-size: 12rem;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  place-content: center;
+  justify-content: center;
+  display: flex;
+  font-family: "Ubuntu", sans-serif;
+  background: linear-gradient(to bottom, #11998e, #38ef7d);
+  background-size: 100%;
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  font-weight: bold;
+  
+
+}
+
+.o_wins{
+  height: auto;
+  width: 15rem;
+  font-size: 12rem;
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  place-content: center;
+  font-family: "Ubuntu", sans-serif;
+  background: linear-gradient(to bottom, #cac531, #f3f9a7);
+  background-size: 100%;
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  font-weight: bold;
+
+
+}
+
 /* *****************************  RESTART GAME  *********************************  */
 
 div.resetGame{
@@ -415,7 +464,7 @@ div.display_message{
 @media(max-width : 480px){
   div.wrapper{
     flex-direction: column;
-    justify-content:space-evenly;
+    justify-content: space-between;
   }
   div#theme_toggle{
     font-size: 2.2rem;
@@ -439,7 +488,7 @@ div.display_message{
       transform: translateY(0);
     }
     100% {
-      transform: translateY(-110%) scale(1.4);
+      transform: translateY(-100%) scale(1.4);
     }
   }
 
